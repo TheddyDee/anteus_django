@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Post</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+{% endblock head %}
+{% block body %}
+<a id="home" href="/index">Home</a>
+<div style="margin:5% 0">
+    <h2>Post</h2>
+    <p><b>Title:</b><br>{{ post_title }}</p>
+    <p><b>Content:</b><br> {{ post_content }}</p>
+    <p><b>Time:</b><br> {{ post_date }}</p>
+    <button id="like_button">{{post_likes}} UP</button>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+param_id = $(location).attr('pathname').replace("/", "");
+    $("#like_button").click(function() {
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('ajax_def')}}",
+            data: "param=" + param_id,
+            dataType: "html",
+            success: function (value) {
+                $("#like_button").text( value + " UP")
+            }
+        });
+    });
+});
+</script>
+{% endblock body %}

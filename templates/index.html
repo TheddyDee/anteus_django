@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Posts</title>
+<style>
+    td {border-bottom:2px solid grey}
+    table {margin:5% 0;min-width:100%;border-collapse: collapse}
+    th {text-align:left}
+</style>
+{% endblock head %}
+
+{% block body %}
+<a href="/new_post">New post</a>
+<br>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Time</th>
+        <th>Likes</th>
+    </tr>
+
+    {% for row in posts %}
+    <tr>
+        {% for key in row %}
+        {% if key == 'post_title' %}
+        <td><a href="/{{ row['id'] }}">{{row['post_title']}}</a></td>
+        {% else %}
+        <td> {{ row[key] }}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock body %}
